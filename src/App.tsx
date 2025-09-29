@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Terminal, Settings, Key, Server, Plus, Menu, X } from 'lucide-react'
+import { Terminal, Settings, Key, Server, Plus, Menu, X, Folder } from 'lucide-react'
 import { ConnectionManager } from './components/ConnectionManager'
 import { TerminalView } from './components/TerminalView'
 import { KeyManager } from './components/KeyManager'
 import { SettingsPanel } from './components/SettingsPanel'
-import { FileTransfer } from './components/FileTransfer'
+import { FileTransfer as FileTransferView } from './components/FileTransfer'
 import { StatusBar } from './components/StatusBar'
 import { useTheme } from './hooks/useTheme'
 import { useSettings } from './hooks/useSettings'
@@ -68,7 +68,7 @@ function App() {
       case 'settings':
         return <SettingsPanel />
       case 'files':
-        return <FileTransfer connectionId={appState.activeConnection} />
+        return <FileTransferView connectionId={appState.activeConnection} />
       default:
         return <ConnectionManager onConnectionSelect={handleConnectionSelect} />
     }
@@ -77,11 +77,11 @@ function App() {
   return (
     <div className="h-screen bg-dark-900 text-white flex flex-col overflow-hidden">
       {/* Header */}
-      <header className="bg-dark-800 border-b border-dark-700 px-4 py-3 flex items-center justify-between">
+      <header className="app-header px-4 py-3 flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <button
             onClick={handleSidebarToggle}
-            className="p-2 hover:bg-dark-700 rounded-lg transition-colors"
+            className="p-2 hover:bg-dark-700/70 rounded-lg transition-colors"
           >
             <Menu className="w-5 h-5" />
           </button>
@@ -94,25 +94,24 @@ function App() {
         <div className="flex items-center space-x-2">
           <button
             onClick={toggleTheme}
-            className="p-2 hover:bg-dark-700 rounded-lg transition-colors"
+            className="p-2 hover:bg-dark-700/70 rounded-lg transition-colors"
             title="Toggle theme"
           >
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>
         </div>
       </header>
+      <div className="app-accent-bar" />
 
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
         {appState.sidebarOpen && (
-          <aside className="w-64 bg-dark-800 border-r border-dark-700 flex flex-col">
+          <aside className="w-64 sidebar flex flex-col">
             <nav className="flex-1 p-4 space-y-2">
               <button
                 onClick={() => handleViewChange('connections')}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  appState.currentView === 'connections'
-                    ? 'bg-primary-600 text-white'
-                    : 'hover:bg-dark-700 text-gray-300'
+                className={`nav-item ${
+                  appState.currentView === 'connections' ? 'nav-item-active' : ''
                 }`}
               >
                 <Server className="w-5 h-5" />
@@ -121,10 +120,8 @@ function App() {
 
               <button
                 onClick={() => handleViewChange('terminal')}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  appState.currentView === 'terminal'
-                    ? 'bg-primary-600 text-white'
-                    : 'hover:bg-dark-700 text-gray-300'
+                className={`nav-item ${
+                  appState.currentView === 'terminal' ? 'nav-item-active' : ''
                 }`}
                 disabled={!appState.activeConnection}
               >
@@ -134,14 +131,12 @@ function App() {
 
               <button
                 onClick={() => handleViewChange('files')}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  appState.currentView === 'files'
-                    ? 'bg-primary-600 text-white'
-                    : 'hover:bg-dark-700 text-gray-300'
+                className={`nav-item ${
+                  appState.currentView === 'files' ? 'nav-item-active' : ''
                 }`}
                 disabled={!appState.activeConnection}
               >
-                <FileTransfer className="w-5 h-5" />
+                <Folder className="w-5 h-5" />
                 <span>File Transfer</span>
               </button>
 
@@ -149,10 +144,8 @@ function App() {
 
               <button
                 onClick={() => handleViewChange('keys')}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  appState.currentView === 'keys'
-                    ? 'bg-primary-600 text-white'
-                    : 'hover:bg-dark-700 text-gray-300'
+                className={`nav-item ${
+                  appState.currentView === 'keys' ? 'nav-item-active' : ''
                 }`}
               >
                 <Key className="w-5 h-5" />
@@ -161,10 +154,8 @@ function App() {
 
               <button
                 onClick={() => handleViewChange('settings')}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  appState.currentView === 'settings'
-                    ? 'bg-primary-600 text-white'
-                    : 'hover:bg-dark-700 text-gray-300'
+                className={`nav-item ${
+                  appState.currentView === 'settings' ? 'nav-item-active' : ''
                 }`}
               >
                 <Settings className="w-5 h-5" />
@@ -173,7 +164,7 @@ function App() {
             </nav>
 
             {/* Connection Status */}
-            <div className="p-4 border-t border-dark-700">
+            <div className="p-4 border-t border-dark-700/70">
               <div className="text-sm text-gray-400 mb-2">Active Connections</div>
               <div className="space-y-2">
                 {appState.activeConnection ? (
@@ -193,7 +184,7 @@ function App() {
         )}
 
         {/* Main Content */}
-        <main className="flex-1 flex flex-col overflow-hidden">
+        <main className="flex-1 flex flex-col overflow-hidden content-surface">
           <div className="flex-1 overflow-hidden">
             {renderCurrentView()}
           </div>
