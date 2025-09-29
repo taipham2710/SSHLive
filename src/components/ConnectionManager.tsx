@@ -100,9 +100,9 @@ export function ConnectionManager({ onConnectionSelect }: ConnectionManagerProps
   }
 
   return (
-    <div className="h-full flex flex-col bg-dark-900">
+    <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="p-6 border-b border-dark-700">
+      <div className="p-6 border-b border-dark-700/70">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-white">SSH Connections</h2>
@@ -131,16 +131,20 @@ export function ConnectionManager({ onConnectionSelect }: ConnectionManagerProps
       {/* Connections List */}
       <div className="flex-1 overflow-y-auto p-6">
         {connections.length === 0 ? (
-          <div className="text-center py-12">
-            <Server className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-300 mb-2">No Connections</h3>
-            <p className="text-gray-500 mb-6">Create your first SSH connection to get started</p>
-            <button
-              onClick={() => setShowNewConnection(true)}
-              className="btn-primary"
-            >
-              Create Connection
-            </button>
+          <div className="max-w-3xl mx-auto">
+            <div className="card card-hover p-10 text-center">
+              <div className="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center gradient-secondary shadow-glow">
+                <Server className="w-8 h-8 text-blue-300" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-200 mb-2">No Connections</h3>
+              <p className="text-gray-400 mb-6">Create your first SSH connection to get started</p>
+              <button
+                onClick={() => setShowNewConnection(true)}
+                className="btn-primary"
+              >
+                Create Connection
+              </button>
+            </div>
           </div>
         ) : (
           <div className="grid gap-4">
@@ -179,7 +183,7 @@ export function ConnectionManager({ onConnectionSelect }: ConnectionManagerProps
       {/* New Connection Modal */}
       {showNewConnection && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-dark-800 border border-dark-700 rounded-lg p-6 w-full max-w-md mx-4">
+          <div className="bg-dark-800/90 backdrop-blur-md border border-dark-700 rounded-xl p-6 w-full max-w-md mx-4">
             <h3 className="text-xl font-bold text-white mb-4">New SSH Connection</h3>
             
             <form onSubmit={handleSubmit} className="space-y-4">
