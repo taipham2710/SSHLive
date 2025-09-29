@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Wifi, WifiOff, Clock, User } from 'lucide-react'
 
 interface StatusBarProps {
@@ -17,6 +17,15 @@ export function StatusBar({ activeConnection, currentView }: StatusBarProps) {
   const status = getConnectionStatus()
   const StatusIcon = status.icon
 
+  // realtime 24h clock
+  const [time, setTime] = useState<string>(() => new Date().toLocaleTimeString([], { hour12: false }))
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTime(new Date().toLocaleTimeString([], { hour12: false }))
+    }, 1000)
+    return () => clearInterval(id)
+  }, [])
+
   return (
     <div className="flex items-center justify-between px-4 py-2 bg-dark-800 border-t border-dark-700 text-sm">
       <div className="flex items-center space-x-6">
@@ -34,7 +43,7 @@ export function StatusBar({ activeConnection, currentView }: StatusBarProps) {
       <div className="flex items-center space-x-6 text-gray-400">
         <div className="flex items-center space-x-2">
           <Clock className="w-4 h-4" />
-          <span>{new Date().toLocaleTimeString()}</span>
+          <span>{time}</span>
         </div>
         
         <div className="text-xs">
