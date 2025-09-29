@@ -401,7 +401,7 @@ export function SettingsPanel() {
         </div>
       </div>
 
-      <div className="pt-6 border-t border-dark-700">
+      <div className="pt-6 border-t border-dark-700/70">
         <button
           onClick={handleReset}
           className="btn-danger flex items-center space-x-2"
@@ -431,9 +431,9 @@ export function SettingsPanel() {
   }
 
   return (
-    <div className="h-full flex flex-col bg-dark-900">
+    <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="p-6 border-b border-dark-700">
+      <div className="p-6 border-b border-dark-700/70">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-white">Settings</h2>
@@ -450,7 +450,7 @@ export function SettingsPanel() {
 
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
-        <div className="w-64 bg-dark-800 border-r border-dark-700 p-4">
+        <div className="w-64 sidebar p-4">
           <nav className="space-y-2">
             {tabs.map((tab) => {
               const Icon = tab.icon
@@ -458,11 +458,7 @@ export function SettingsPanel() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                    activeTab === tab.id
-                      ? 'bg-primary-600 text-white'
-                      : 'hover:bg-dark-700 text-gray-300'
-                  }`}
+                  className={`nav-item ${activeTab === tab.id ? 'nav-item-active' : ''}`}
                 >
                   <Icon className="w-5 h-5" />
                   <span>{tab.label}</span>
