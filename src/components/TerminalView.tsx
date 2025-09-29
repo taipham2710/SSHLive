@@ -162,9 +162,9 @@ export function TerminalView({ connectionId, onConnectionClose }: TerminalViewPr
 
   if (!connectionId || !connection) {
     return (
-      <div className="h-full flex items-center justify-center bg-dark-900">
-        <div className="text-center">
-          <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+      <div className="h-full flex items-center justify-center">
+        <div className="text-center card p-10 max-w-md mx-auto">
+          <div className="w-16 h-16 bg-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <span className="text-2xl">🔌</span>
           </div>
           <h3 className="text-xl font-semibold text-gray-300 mb-2">No Active Connection</h3>
@@ -175,9 +175,9 @@ export function TerminalView({ connectionId, onConnectionClose }: TerminalViewPr
   }
 
   return (
-    <div className={`h-full flex flex-col bg-dark-900 ${isMaximized ? 'fixed inset-0 z-50' : ''}`}>
+    <div className={`h-full flex flex-col ${isMaximized ? 'fixed inset-0 z-50 content-surface' : ''}`}>
       {/* Terminal Header */}
-      <div className="flex items-center justify-between p-4 bg-dark-800 border-b border-dark-700">
+      <div className="flex items-center justify-between p-4 bg-dark-800/80 backdrop-blur-md border-b border-dark-700/70">
         <div className="flex items-center space-x-3">
           <div className={`w-3 h-3 rounded-full ${
             isConnected ? 'bg-green-400 animate-pulse' : 'bg-red-400'
@@ -241,7 +241,7 @@ export function TerminalView({ connectionId, onConnectionClose }: TerminalViewPr
       </div>
 
       {/* Status Bar */}
-      <div className="px-4 py-2 bg-dark-800 border-t border-dark-700 text-sm text-gray-400">
+      <div className="px-4 py-2 bg-dark-800/80 backdrop-blur-md border-t border-dark-700/70 text-sm text-gray-400">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <span>SSH Terminal</span>
