@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Upload, Download, Folder, File, ArrowUp, ArrowDown, RefreshCw, MoreVertical } from 'lucide-react'
+import { Upload, Download, Folder, File, ArrowUp, RefreshCw, MoreVertical } from 'lucide-react'
 
 interface FileInfo {
   name: string
@@ -118,8 +118,8 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
 
   if (!connectionId) {
     return (
-      <div className="h-full flex items-center justify-center bg-dark-900">
-        <div className="text-center">
+      <div className="h-full flex items-center justify-center">
+        <div className="text-center card p-10 max-w-md mx-auto">
           <Folder className="w-16 h-16 text-gray-600 mx-auto mb-4" />
           <h3 className="text-xl font-semibold text-gray-300 mb-2">No Active Connection</h3>
           <p className="text-gray-500">Connect to a server to transfer files</p>
@@ -129,9 +129,9 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
   }
 
   return (
-    <div className="h-full flex flex-col bg-dark-900">
+    <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="p-6 border-b border-dark-700">
+      <div className="p-6 border-b border-dark-700/70">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-white">File Transfer</h2>
@@ -158,18 +158,18 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
       </div>
 
       {/* Path Navigation */}
-      <div className="px-6 py-3 bg-dark-800 border-b border-dark-700">
-        <div className="flex items-center space-x-2">
+      <div className="px-6 py-3 bg-dark-800/70 backdrop-blur-md border-b border-dark-700/70">
+        <div className="flex items-center space-x-3">
           <button
             onClick={handleGoUp}
             disabled={currentPath === '/'}
-            className="p-1 hover:bg-dark-700 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-1.5 hover:bg-dark-700/70 rounded disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <ArrowUp className="w-4 h-4 text-gray-400" />
+            <ArrowUp className="w-4 h-4 text-gray-300" />
           </button>
-          <span className="text-sm text-gray-300 font-mono">
+          <div className="text-sm text-gray-300 font-mono truncate max-w-[75%]">
             {currentPath}
-          </span>
+          </div>
         </div>
       </div>
 
@@ -192,8 +192,10 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
             </div>
           </div>
         ) : files.length === 0 ? (
-          <div className="text-center py-12">
-            <Folder className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+          <div className="text-center py-12 card">
+            <div className="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center gradient-secondary shadow-glow">
+              <Folder className="w-8 h-8 text-blue-300" />
+            </div>
             <h3 className="text-xl font-semibold text-gray-300 mb-2">Empty Directory</h3>
             <p className="text-gray-500">This directory is empty</p>
           </div>
@@ -202,10 +204,10 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
             {files.map((file) => (
               <div
                 key={file.name}
-                className={`flex items-center space-x-4 p-4 rounded-lg border cursor-pointer transition-colors ${
+                className={`flex items-center space-x-4 p-4 rounded-lg border cursor-pointer transition-all ${
                   selectedFiles.has(file.name)
                     ? 'border-primary-500 bg-primary-500/10'
-                    : 'border-dark-700 hover:border-dark-600 hover:bg-dark-800/50'
+                    : 'border-dark-700 hover:border-dark-600 hover:bg-dark-800/40'
                 }`}
                 onClick={() => handleFileSelect(file.name, file.type === 'directory')}
               >
@@ -221,7 +223,7 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
                   <div className="flex items-center space-x-2">
                     <span className="text-white font-medium truncate">{file.name}</span>
                     {file.type === 'directory' && (
-                      <span className="text-xs text-blue-400 bg-blue-400/10 px-2 py-1 rounded">
+                      <span className="text-xs text-blue-300 bg-blue-500/10 px-2 py-0.5 rounded-full">
                         DIR
                       </span>
                     )}
@@ -240,18 +242,18 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
                         e.stopPropagation()
                         handleDownload(file.name)
                       }}
-                      className="p-2 hover:bg-dark-700 rounded-lg transition-colors"
+                      className="px-2 py-1 hover:bg-dark-700 rounded-lg transition-colors text-sm text-gray-300"
                       title="Download"
                     >
-                      <Download className="w-4 h-4 text-gray-400" />
+                      <Download className="w-4 h-4" />
                     </button>
                   )}
                   
                   <button
-                    className="p-2 hover:bg-dark-700 rounded-lg transition-colors"
+                    className="px-2 py-1 hover:bg-dark-700 rounded-lg transition-colors text-sm text-gray-300"
                     title="More options"
                   >
-                    <MoreVertical className="w-4 h-4 text-gray-400" />
+                    <MoreVertical className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -261,7 +263,7 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
       </div>
 
       {/* Status Bar */}
-      <div className="px-6 py-3 bg-dark-800 border-t border-dark-700">
+      <div className="px-6 py-3 bg-dark-800/70 backdrop-blur-md border-t border-dark-700/70">
         <div className="flex items-center justify-between text-sm text-gray-400">
           <div className="flex items-center space-x-4">
             <span>{files.length} items</span>
