@@ -10,6 +10,24 @@
 }
 
 @layer components {
+  /* App chrome */
+  .app-header {
+    @apply bg-dark-800/80 backdrop-blur-md border-b border-dark-700/70;
+  }
+
+  .app-accent-bar {
+    background: linear-gradient(90deg, rgba(14,165,233,0.35) 0%, rgba(99,102,241,0.35) 50%, rgba(236,72,153,0.35) 100%);
+    height: 2px;
+  }
+
+  .sidebar {
+    @apply bg-dark-800/70 backdrop-blur-md border-r border-dark-700/70;
+  }
+
+  .content-surface {
+    @apply bg-dark-900/60 backdrop-blur-sm;
+  }
+
   .terminal-container {
     @apply bg-dark-900 text-green-400 font-mono;
   }
@@ -96,7 +114,17 @@
 
 /* Button variants */
 .btn-primary {
-  @apply bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 focus-ring;
+  @apply text-white px-4 py-2 rounded-lg transition-all duration-200 focus-ring shadow-glow;
+  background: linear-gradient(180deg, rgba(14,165,233,1) 0%, rgba(2,132,199,1) 100%);
+  box-shadow: 0 8px 20px rgba(14,165,233,0.25);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.06);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
 }
 
 .btn-secondary {
@@ -118,10 +146,19 @@
 
 /* Card styles */
 .card {
-  @apply bg-dark-800 border border-dark-700 rounded-lg shadow-lg;
+  @apply bg-dark-800/70 border border-dark-700/70 rounded-xl shadow-lg backdrop-blur-sm;
 }
 
 .card-hover {
-  @apply hover:shadow-xl hover:shadow-primary-500/10 transition-all duration-300;
+  @apply hover:shadow-xl hover:shadow-primary-500/10 transition-all duration-300 hover:-translate-y-0.5;
+}
+
+/* Navigation items */
+.nav-item {
+  @apply w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 text-gray-300 hover:bg-dark-700/80;
+}
+
+.nav-item-active {
+  @apply bg-primary-600 text-white shadow-glow;
 }
 
