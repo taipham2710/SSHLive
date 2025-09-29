@@ -28,8 +28,10 @@ function App() {
   const { settings } = useSettings()
 
   useEffect(() => {
-    // Apply theme to document
-    document.documentElement.classList.toggle('dark', theme === 'dark')
+    // Apply theme classes to document
+    const root = document.documentElement
+    root.classList.toggle('dark', theme === 'dark')
+    root.classList.toggle('theme-light', theme === 'light')
   }, [theme])
 
   const handleViewChange = (view: View) => {
