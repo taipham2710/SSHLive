@@ -168,7 +168,7 @@ export function TerminalView({ connectionId, onConnectionClose }: TerminalViewPr
             <span className="text-2xl">🔌</span>
           </div>
           <h3 className="text-xl font-semibold text-gray-300 mb-2">No Active Connection</h3>
-          <p className="text-gray-500">Select a connection from the sidebar to start</p>
+          <p className="text-gray-500 theme-light:text-slate-600">Select a connection from the sidebar to start</p>
         </div>
       </div>
     )

@@ -122,7 +122,7 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
         <div className="text-center card p-10 max-w-md mx-auto">
           <Folder className="w-16 h-16 text-gray-600 mx-auto mb-4" />
           <h3 className="text-xl font-semibold text-gray-300 mb-2">No Active Connection</h3>
-          <p className="text-gray-500">Connect to a server to transfer files</p>
+          <p className="text-gray-500 theme-light:text-slate-600">Connect to a server to transfer files</p>
         </div>
       </div>
     )
