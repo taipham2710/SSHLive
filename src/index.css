@@ -6,11 +6,14 @@
   :root {
     /* Global app font size (rem base). Controlled by Settings preview. */
     --app-font-size: 14px;
+    /* Global app font family (default: system UI as in the screenshot). */
+    --app-font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
   }
   body {
     @apply bg-dark-900;
     color: white;
     font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: var(--app-font-family);
   }
 
   /* Light theme: refined with softer colors and proper border radius handling */

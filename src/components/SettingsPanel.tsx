@@ -8,6 +8,19 @@ export function SettingsPanel() {
   const [hasChanges, setHasChanges] = useState(false)
   const [previewTheme, setPreviewTheme] = useState<'light' | 'dark' | 'auto' | undefined>(undefined)
   const [previewFontSize, setPreviewFontSize] = useState<number | undefined>(undefined)
+  const [previewFontFamily, setPreviewFontFamily] = useState<string | undefined>(undefined)
+  const DEFAULT_FONT_STACK = "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif"
+
+  // Capture the initial app font (once) as the true default
+  useEffect(() => {
+    // Ensure CSS variable has default on mount
+    const current = getComputedStyle(document.documentElement)
+      .getPropertyValue('--app-font-family')
+      .trim()
+    if (!current) {
+      document.documentElement.style.setProperty('--app-font-family', DEFAULT_FONT_STACK)
+    }
+  }, [])
 
   const applyTheme = (theme: 'light' | 'dark' | 'auto', animate: boolean = true) => {
     const root = document.documentElement
@@ -55,8 +68,13 @@ export function SettingsPanel() {
       if (previewFontSize !== undefined) {
         document.documentElement.style.setProperty('--app-font-size', `${settings.fontSize || 14}px`)
       }
+      // Revert font family to saved value on leave if not saved
+      if (previewFontFamily !== undefined) {
+        document.documentElement.style.setProperty('--app-font-family', settings.fontFamily || 'JetBrains Mono')
+        setPreviewFontFamily(undefined)
+      }
     }
-  }, [previewTheme, previewFontSize, settings.theme, settings.fontSize])
+  }, [previewTheme, previewFontSize, previewFontFamily, settings.theme, settings.fontSize, settings.fontFamily])
 
   const tabs = [
     { id: 'appearance', label: 'Appearance', icon: Palette },
@@ -160,15 +178,28 @@ export function SettingsPanel() {
       <div>
         <label className="block text-lg font-semibold text-white mb-3 theme-light:text-blue-900">Font Family</label>
         <select
-          value={settings.fontFamily || 'JetBrains Mono'}
-          onChange={(e) => handleSettingChange('fontFamily', e.target.value)}
+          value={previewFontFamily ?? settings.fontFamily ?? DEFAULT_FONT_STACK}
+          onChange={(e) => {
+            const family = e.target.value
+            // Preview font family immediately
+            document.documentElement.classList.add('theme-anim')
+            document.documentElement.style.setProperty('--app-font-family', family)
+            window.clearTimeout((document.documentElement as any)._themeAnimTid)
+            ;(document.documentElement as any)._themeAnimTid = window.setTimeout(() => {
+              document.documentElement.classList.remove('theme-anim')
+            }, 200)
+            setHasChanges(true)
+            // Do not persist until Save is clicked
+            setPreviewFontFamily(family)
+          }}
           className="input-primary w-full"
         >
-          <option value="JetBrains Mono">JetBrains Mono</option>
-          <option value="Fira Code">Fira Code</option>
-          <option value="Monaco">Monaco</option>
-          <option value="Consolas">Consolas</option>
-          <option value="Courier New">Courier New</option>
+          <option value={DEFAULT_FONT_STACK}>Inter (Default)</option>
+          <option value="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace">JetBrains Mono</option>
+          <option value="'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace">Fira Code</option>
+          <option value="Monaco, ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', 'Courier New', monospace">Monaco</option>
+          <option value="Consolas, ui-monospace, SFMono-Regular, Menlo, Monaco, 'Liberation Mono', 'Courier New', monospace">Consolas</option>
+          <option value="'Courier New', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace">Courier New</option>
         </select>
       </div>
 
@@ -516,6 +547,10 @@ export function SettingsPanel() {
                 }
                 if (previewFontSize !== undefined) {
                   await updateSetting('fontSize' as any, previewFontSize)
+                }
+                if (previewFontFamily !== undefined) {
+                  await updateSetting('fontFamily' as any, previewFontFamily)
+                  setPreviewFontFamily(undefined)
                 }
                 setHasChanges(false)
               }}
