@@ -105,7 +105,7 @@ function App() {
       </header>
       <div className="app-accent-bar" />
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden unify-text-size">
         {/* Sidebar */}
         {appState.sidebarOpen && (
           <aside className="w-64 sidebar flex flex-col">

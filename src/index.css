@@ -3,10 +3,15 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Global app font size (rem base). Controlled by Settings preview. */
+    --app-font-size: 14px;
+  }
   body {
     @apply bg-dark-900;
     color: white;
     font-feature-settings: "rlig" 1, "calt" 1;
+    font-size: var(--app-font-size);
   }
 
   /* Light theme: refined with softer colors and proper border radius handling */
@@ -18,9 +23,55 @@
 
 /* Smooth theme switching */
 .theme-anim, .theme-anim * {
-  transition-property: background-color, color, border-color, box-shadow, fill, stroke;
+  transition-property: background-color, color, border-color, box-shadow, fill, stroke, font-size;
   transition-duration: 220ms;
   transition-timing-function: ease;
+}
+/* Unify most text sizes across the app (except the app header title) */
+.unify-text-size {
+  font-size: var(--app-font-size);
+}
+.unify-text-size p,
+.unify-text-size span,
+.unify-text-size label,
+.unify-text-size button,
+.unify-text-size li,
+.unify-text-size div,
+.unify-text-size select,
+.unify-text-size input,
+.unify-text-size textarea {
+  font-size: var(--app-font-size);
+}
+/* Override Tailwind text utilities inside the unified area */
+.unify-text-size .text-xs,
+.unify-text-size .text-sm,
+.unify-text-size .text-base,
+.unify-text-size .text-lg,
+.unify-text-size .text-xl,
+.unify-text-size .text-2xl,
+.unify-text-size .text-3xl {
+  font-size: var(--app-font-size) !important;
+}
+/* Ensure inputs/selects inherit */
+.unify-text-size .input-primary,
+.unify-text-size select,
+.unify-text-size input[type="text"],
+.unify-text-size input[type="number"],
+.unify-text-size input[type="password"],
+.unify-text-size input[type="email"] {
+  font-size: inherit;
+}
+.unify-text-size h1,
+.unify-text-size h2,
+.unify-text-size h3,
+.unify-text-size h4,
+.unify-text-size .text-xl,
+.unify-text-size .text-2xl,
+.unify-text-size .text-3xl {
+  /* keep larger headings if explicitly set */
+}
+.app-header .brand-title { /* SSH Live title */
+  font-size: 1.25rem; /* keep constant */
 }
 @media (prefers-reduced-motion: reduce) {
   .theme-anim, .theme-anim * { transition: none !important; }

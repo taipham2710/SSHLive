@@ -7,6 +7,7 @@ export function SettingsPanel() {
   const [activeTab, setActiveTab] = useState<'appearance' | 'security' | 'connection' | 'terminal' | 'advanced'>('appearance')
   const [hasChanges, setHasChanges] = useState(false)
   const [previewTheme, setPreviewTheme] = useState<'light' | 'dark' | 'auto' | undefined>(undefined)
+  const [previewFontSize, setPreviewFontSize] = useState<number | undefined>(undefined)
 
   const applyTheme = (theme: 'light' | 'dark' | 'auto') => {
     const root = document.documentElement
@@ -35,8 +36,11 @@ export function SettingsPanel() {
         const fallback = (settings.theme || 'auto') as 'light' | 'dark' | 'auto'
         applyTheme(fallback)
       }
+      if (previewFontSize !== undefined) {
+        document.documentElement.style.setProperty('--app-font-size', `${settings.fontSize || 14}px`)
+      }
     }
-  }, [previewTheme, settings.theme])
+  }, [previewTheme, previewFontSize, settings.theme, settings.fontSize])
 
   const tabs = [
     { id: 'appearance', label: 'Appearance', icon: Palette },
@@ -51,6 +55,18 @@ export function SettingsPanel() {
       // Theme is special: only preview until user clicks Save
       if (key === 'theme') {
         setPreviewTheme(value)
+        setHasChanges(true)
+        return
+      }
+      // Font size preview only (no save yet)
+      if (key === 'fontSize') {
+        setPreviewFontSize(value)
+        document.documentElement.classList.add('theme-anim')
+        document.documentElement.style.setProperty('--app-font-size', `${value}px`)
+        window.clearTimeout((document.documentElement as any)._themeAnimTid)
+        ;(document.documentElement as any)._themeAnimTid = window.setTimeout(() => {
+          document.documentElement.classList.remove('theme-anim')
+        }, 200)
         setHasChanges(true)
         return
       }
@@ -113,13 +129,13 @@ export function SettingsPanel() {
           type="range"
           min="10"
           max="24"
-          value={settings.fontSize || 14}
+          value={previewFontSize ?? settings.fontSize ?? 14}
           onChange={(e) => handleSettingChange('fontSize', parseInt(e.target.value))}
           className="w-full h-2 bg-dark-700 rounded-lg appearance-none cursor-pointer theme-light:bg-blue-100"
         />
         <div className="flex justify-between text-sm text-gray-400 mt-2 theme-light:text-blue-700">
           <span>10px</span>
-          <span className="font-semibold">{settings.fontSize || 14}px</span>
+          <span className="font-semibold">{previewFontSize ?? settings.fontSize ?? 14}px</span>
           <span>24px</span>
         </div>
       </div>
@@ -471,7 +487,7 @@ export function SettingsPanel() {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-white">Settings</h2>
-            <p className="text-gray-400 mt-1 theme-light:text-slate-600">Customize your SSH Live experience</p>
+            <p className="text-gray-400 mt-1 theme-light:text-slate-600 text-base">Customize your SSH Live experience</p>
           </div>
           {hasChanges && (
             <button
@@ -480,6 +496,9 @@ export function SettingsPanel() {
                 if (previewTheme) {
                   await updateSetting('theme' as any, previewTheme)
                   setPreviewTheme(undefined)
+                }
+                if (previewFontSize !== undefined) {
+                  await updateSetting('fontSize' as any, previewFontSize)
                 }
                 setHasChanges(false)
               }}
