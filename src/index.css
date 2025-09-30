@@ -23,8 +23,8 @@
   }
 
   .theme-light .app-header {
-    @apply border-blue-100/60;
-    background-color: rgba(255, 255, 255, 0.85);
+    @apply border-blue-200/80;
+    background-color: rgb(255, 255, 255);
     backdrop-filter: blur(12px);
     box-shadow: 0 2px 8px rgba(59, 130, 246, 0.08); /* Bóng mờ nhẹ hơn */
   }
@@ -44,8 +44,8 @@
     @apply bg-dark-800/70 backdrop-blur-md border-r border-dark-700/70;
   }
   .theme-light .sidebar {
-    @apply border-blue-50;
-    background-color: rgba(240, 249, 255, 0.9);
+    @apply border-blue-200/60;
+    background-color: rgb(255, 255, 255);
     backdrop-filter: blur(16px);
     box-shadow: 2px 0 12px rgba(59, 130, 246, 0.05);
   }
@@ -54,9 +54,9 @@
     @apply bg-dark-900/60 backdrop-blur-sm;
   }
   .theme-light .content-surface {
-    background-color: rgba(255,255,255,0.95);
+    background-color: rgb(255, 255, 255);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(191, 219, 254, 0.6); /* Blue-200 với opacity cao hơn */
     box-shadow: 0 4px 20px rgba(59, 130, 246, 0.07);
   }
 
@@ -266,7 +266,7 @@
 .theme-light .btn-secondary {
   color: #1d4ed8; /* blue-700 */
   background-color: #eff6ff; /* blue-50 */
-  border: 1px solid #bfdbfe; /* blue-200 */
+  border: 2px solid #93c5fd; /* blue-300 - đậm hơn */
   box-shadow: 0 2px 5px rgba(59, 130, 246, 0.08);
 }
 .theme-light .btn-secondary:hover {
@@ -299,7 +299,7 @@
 .theme-light .input-primary {
   color: #1e40af; /* blue-800 */
   background-color: #ffffff;
-  border: 1px solid #bfdbfe; /* blue-200 */
+  border: 2px solid #93c5fd; /* blue-300 - đậm hơn */
   box-shadow: 0 2px 5px rgba(59, 130, 246, 0.05);
 }
 .theme-light .input-primary:focus {
@@ -314,7 +314,7 @@
 .theme-light .card {
   background-color: rgba(255, 255, 255, 0.98);
   box-shadow: 0 6px 16px rgba(59, 130, 246, 0.08);
-  border: 1px solid rgba(191, 219, 254, 0.4); /* blue-200 with opacity */
+  border: 1px solid rgba(191, 219, 254, 0.8); /* blue-200 với opacity cao hơn */
 }
 
 .card-hover {
