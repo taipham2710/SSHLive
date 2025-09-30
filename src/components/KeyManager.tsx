@@ -148,7 +148,7 @@ export function KeyManager() {
   return (
     <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="p-6 border-b border-dark-700/70">
+      <div className="p-6 border-b border-dark-700/70 separator-line">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-white">SSH Keys</h2>

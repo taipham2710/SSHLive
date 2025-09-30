@@ -401,7 +401,7 @@ export function SettingsPanel() {
         </div>
       </div>
 
-      <div className="pt-6 border-t border-dark-700/70">
+      <div className="pt-6 border-t border-dark-700/70 separator-line">
         <button
           onClick={handleReset}
           className="btn-danger flex items-center space-x-2"
@@ -433,7 +433,7 @@ export function SettingsPanel() {
   return (
     <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="p-6 border-b border-dark-700/70">
+      <div className="p-6 border-b border-dark-700/70 separator-line">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-white">Settings</h2>

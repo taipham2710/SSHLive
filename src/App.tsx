@@ -142,7 +142,7 @@ function App() {
                 <span>File Transfer</span>
               </button>
 
-              <div className="border-t border-dark-700 my-4"></div>
+              <div className="border-t border-dark-700 my-4 separator-line"></div>
 
               <button
                 onClick={() => handleViewChange('keys')}
@@ -166,7 +166,7 @@ function App() {
             </nav>
 
             {/* Connection Status */}
-            <div className="p-4 border-t border-dark-700/70">
+            <div className="p-4 border-t border-dark-700/70 separator-line">
               <div className="text-sm text-gray-400 mb-2">Active Connections</div>
               <div className="space-y-2">
                 {appState.activeConnection ? (

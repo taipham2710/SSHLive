@@ -131,7 +131,7 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
   return (
     <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="p-6 border-b border-dark-700/70">
+      <div className="p-6 border-b border-dark-700/70 separator-line">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-white">File Transfer</h2>
@@ -158,7 +158,7 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
       </div>
 
       {/* Path Navigation */}
-      <div className="px-6 py-3 bg-dark-800/70 backdrop-blur-md border-b border-dark-700/70">
+      <div className="px-6 py-3 bg-dark-800/70 backdrop-blur-md border-b border-dark-700/70 separator-line">
         <div className="flex items-center space-x-3">
           <button
             onClick={handleGoUp}
@@ -263,7 +263,7 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
       </div>
 
       {/* Status Bar */}
-      <div className="px-6 py-3 bg-dark-800/70 backdrop-blur-md border-t border-dark-700/70">
+      <div className="px-6 py-3 bg-dark-800/70 backdrop-blur-md border-t border-dark-700/70 separator-line">
         <div className="flex items-center justify-between text-sm text-gray-400 theme-light:text-slate-600">
           <div className="flex items-center space-x-4">
             <span>{files.length} items</span>

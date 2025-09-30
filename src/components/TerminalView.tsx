@@ -177,7 +177,7 @@ export function TerminalView({ connectionId, onConnectionClose }: TerminalViewPr
   return (
     <div className={`h-full flex flex-col ${isMaximized ? 'fixed inset-0 z-50 content-surface' : ''}`}>
       {/* Terminal Header */}
-      <div className="flex items-center justify-between p-4 bg-dark-800/80 backdrop-blur-md border-b border-dark-700/70">
+      <div className="flex items-center justify-between p-4 bg-dark-800/80 backdrop-blur-md border-b border-dark-700/70 separator-line">
         <div className="flex items-center space-x-3">
           <div className={`w-3 h-3 rounded-full ${
             isConnected ? 'bg-green-400 animate-pulse' : 'bg-red-400'
@@ -241,7 +241,7 @@ export function TerminalView({ connectionId, onConnectionClose }: TerminalViewPr
       </div>
 
       {/* Status Bar */}
-      <div className="px-4 py-2 bg-dark-800/80 backdrop-blur-md border-t border-dark-700/70 text-sm text-gray-400 theme-light:bg-slate-50 theme-light:border-slate-200 theme-light:text-slate-600">
+      <div className="px-4 py-2 bg-dark-800/80 backdrop-blur-md border-t border-dark-700/70 separator-line text-sm text-gray-400 theme-light:bg-slate-50 theme-light:border-slate-200 theme-light:text-slate-600">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <span>SSH Terminal</span>
