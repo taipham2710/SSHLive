@@ -262,6 +262,65 @@
   @apply bg-blue-300;
 }
 
+/* Range (slider) - ensure full circular thumb and proper track */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 28px; /* extra vertical room so thumb is not clipped */
+  background: transparent;
+}
+
+/* WebKit track */
+input[type='range']::-webkit-slider-runnable-track {
+  height: 8px;
+  background: #334155; /* dark track */
+  border-radius: 9999px;
+}
+.theme-light input[type='range']::-webkit-slider-runnable-track {
+  background: #bfdbfe; /* blue-200 */
+}
+
+/* WebKit thumb */
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #0ea5e9; /* sky-500 */
+  border: 3px solid #ffffff; /* ring */
+  margin-top: -5px; /* center on 8px track */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+.theme-light input[type='range']::-webkit-slider-thumb {
+  background: #2563eb; /* blue-600 */
+  border-color: #ffffff;
+}
+
+/* Firefox track */
+input[type='range']::-moz-range-track {
+  height: 8px;
+  background: #334155;
+  border: none;
+  border-radius: 9999px;
+}
+.theme-light input[type='range']::-moz-range-track {
+  background: #bfdbfe;
+}
+
+/* Firefox thumb */
+input[type='range']::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #0ea5e9;
+  border: 3px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+.theme-light input[type='range']::-moz-range-thumb {
+  background: #2563eb;
+}
+
 /* Terminal specific styles */
 .xterm {
   @apply font-mono;
