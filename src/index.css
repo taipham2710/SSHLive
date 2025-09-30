@@ -249,6 +249,10 @@
 }
 .theme-light ::-webkit-scrollbar-thumb {
   @apply bg-blue-200;
+  min-height: 14px; /* ensure full circle shows */
+  min-width: 14px;
+  border: 3px solid rgba(0,0,0,0); /* space to avoid clipping */
+  background-clip: padding-box; /* keep circle visible */
 }
 
 ::-webkit-scrollbar-thumb:hover {

@@ -45,25 +45,25 @@ export function SettingsPanel() {
   }
 
   const renderAppearanceSettings = () => (
-    <div className="space-y-6">
+    <div className="space-y-8 max-w-3xl mx-auto">
       <div>
-        <label className="block text-sm font-medium text-gray-300 mb-3">Theme</label>
-        <div className="grid grid-cols-3 gap-3">
+        <label className="block text-lg font-semibold text-white mb-4 theme-light:text-blue-900">Theme</label>
+        <div className="grid grid-cols-3 gap-4">
           {(['light', 'dark', 'auto'] as const).map((theme) => (
             <button
               key={theme}
               onClick={() => handleSettingChange('theme', theme)}
-              className={`p-4 rounded-lg border transition-colors ${
+              className={`p-5 rounded-xl border transition-all duration-200 text-center select-none ${
                 settings.theme === theme
-                  ? 'border-primary-500 bg-primary-500/10 text-primary-400'
-                  : 'border-dark-600 hover:border-dark-500 text-gray-300'
+                  ? 'nav-item-active text-white'
+                  : 'border-dark-600 hover:border-primary-400/50 hover:shadow-glow text-gray-300 theme-light:text-blue-700 theme-light:hover:text-blue-800'
               }`}
             >
               <div className="text-center">
-                <div className={`w-8 h-8 rounded mx-auto mb-2 ${
-                  theme === 'light' ? 'bg-white' : theme === 'dark' ? 'bg-dark-700' : 'bg-gradient-to-r from-white to-dark-700'
+                <div className={`w-10 h-10 rounded-lg mx-auto mb-2 ${
+                  theme === 'light' ? 'bg-white shadow-glow' : theme === 'dark' ? 'bg-dark-700' : 'bg-gradient-to-r from-white to-dark-700'
                 }`} />
-                <span className="text-sm font-medium capitalize">{theme}</span>
+                <span className="text-base font-semibold capitalize theme-light:text-blue-800">{theme}</span>
               </div>
             </button>
           ))}
@@ -71,24 +71,24 @@ export function SettingsPanel() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">Font Size</label>
+        <label className="block text-lg font-semibold text-white mb-3 theme-light:text-blue-900">Font Size</label>
         <input
           type="range"
           min="10"
           max="24"
           value={settings.fontSize || 14}
           onChange={(e) => handleSettingChange('fontSize', parseInt(e.target.value))}
-          className="w-full h-2 bg-dark-700 rounded-lg appearance-none cursor-pointer"
+          className="w-full h-2 bg-dark-700 rounded-lg appearance-none cursor-pointer theme-light:bg-blue-100"
         />
-        <div className="flex justify-between text-xs text-gray-500 mt-1">
+        <div className="flex justify-between text-sm text-gray-400 mt-2 theme-light:text-blue-700">
           <span>10px</span>
-          <span className="font-medium">{settings.fontSize || 14}px</span>
+          <span className="font-semibold">{settings.fontSize || 14}px</span>
           <span>24px</span>
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">Font Family</label>
+        <label className="block text-lg font-semibold text-white mb-3 theme-light:text-blue-900">Font Family</label>
         <select
           value={settings.fontFamily || 'JetBrains Mono'}
           onChange={(e) => handleSettingChange('fontFamily', e.target.value)}
@@ -103,10 +103,10 @@ export function SettingsPanel() {
       </div>
 
       <div className="space-y-4">
-        <label className="block text-sm font-medium text-gray-300">UI Preferences</label>
+        <label className="block text-lg font-semibold text-white theme-light:text-blue-900">UI Preferences</label>
         
         <div className="flex items-center justify-between">
-          <span className="text-gray-300">Show Sidebar</span>
+          <span className="text-gray-300 theme-light:text-blue-800 font-medium">Show Sidebar</span>
           <label className="relative inline-flex items-center cursor-pointer">
             <input
               type="checkbox"
@@ -114,12 +114,12 @@ export function SettingsPanel() {
               onChange={(e) => handleNestedSettingChange('ui', 'showSidebar', e.target.checked)}
               className="sr-only peer"
             />
-            <div className="w-11 h-6 bg-dark-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-500/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600" />
+            <div className="w-11 h-6 bg-dark-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-500/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600 theme-light:bg-blue-200" />
           </label>
         </div>
 
         <div className="flex items-center justify-between">
-          <span className="text-gray-300">Show Status Bar</span>
+          <span className="text-gray-300 theme-light:text-blue-800 font-medium">Show Status Bar</span>
           <label className="relative inline-flex items-center cursor-pointer">
             <input
               type="checkbox"
@@ -127,12 +127,12 @@ export function SettingsPanel() {
               onChange={(e) => handleNestedSettingChange('ui', 'showStatusBar', e.target.checked)}
               className="sr-only peer"
             />
-            <div className="w-11 h-6 bg-dark-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-500/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600" />
+            <div className="w-11 h-6 bg-dark-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-500/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600 theme-light:bg-blue-200" />
           </label>
         </div>
 
         <div className="flex items-center justify-between">
-          <span className="text-gray-300">Enable Animations</span>
+          <span className="text-gray-300 theme-light:text-blue-800 font-medium">Enable Animations</span>
           <label className="relative inline-flex items-center cursor-pointer">
             <input
               type="checkbox"
@@ -140,7 +140,7 @@ export function SettingsPanel() {
               onChange={(e) => handleNestedSettingChange('ui', 'animations', e.target.checked)}
               className="sr-only peer"
             />
-            <div className="w-11 h-6 bg-dark-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-500/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600" />
+            <div className="w-11 h-6 bg-dark-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-500/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600 theme-light:bg-blue-200" />
           </label>
         </div>
       </div>
