@@ -16,6 +16,16 @@
   }
 }
 
+/* Smooth theme switching */
+.theme-anim, .theme-anim * {
+  transition-property: background-color, color, border-color, box-shadow, fill, stroke;
+  transition-duration: 220ms;
+  transition-timing-function: ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-anim, .theme-anim * { transition: none !important; }
+}
+
 @layer components {
   /* App chrome */
   .app-header {
