@@ -23,31 +23,45 @@
   }
 
   .theme-light .app-header {
-    @apply border-blue-200/80;
+    border-color: rgba(14, 165, 233, 0.3);
+    border-bottom-color: rgba(14, 165, 233, 0.3);
     background-color: rgb(255, 255, 255);
     backdrop-filter: blur(12px);
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.08); /* Bóng mờ nhẹ hơn */
+    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.15);
   }
 
   .app-accent-bar {
-    background: linear-gradient(90deg, rgba(14,165,233,0.35) 0%, rgba(99,102,241,0.35) 50%, rgba(236,72,153,0.35) 100%);
-    height: 1px; /* Giảm độ dày xuống còn 1px */
+    background: rgba(14, 165, 233, 0.3) !important;
+    height: 2px !important;
+    opacity: 1 !important;
+    box-shadow: 0 2px 4px rgba(14, 165, 233, 0.2) !important;
   }
   
   .theme-light .app-accent-bar {
-    background: linear-gradient(90deg, rgba(37,99,235,0.25) 0%, rgba(79,70,229,0.25) 50%, rgba(219,39,119,0.25) 100%);
-    height: 1px;
-    opacity: 0.7; /* Làm mờ đi một chút */
+    background: rgba(14, 165, 233, 0.3) !important;
+    height: 2px !important; /* Tăng độ dày lên 2px */
+    opacity: 1 !important; /* Bỏ mờ để rõ nét hơn */
+    box-shadow: 0 2px 4px rgba(14, 165, 233, 0.2) !important;
+  }
+
+  /* Force override for app-accent-bar - more specific selector */
+  .theme-light .app-accent-bar,
+  .app-accent-bar {
+    background: rgba(14, 165, 233, 0.3) !important;
+    height: 2px !important;
+    opacity: 1 !important;
+    box-shadow: 0 2px 4px rgba(14, 165, 233, 0.2) !important;
   }
 
   .sidebar {
     @apply bg-dark-800/70 backdrop-blur-md border-r border-dark-700/70;
   }
   .theme-light .sidebar {
-    @apply border-blue-200/60;
+    border-color: rgba(14, 165, 233, 0.3);
+    border-right-color: rgba(14, 165, 233, 0.3);
     background-color: rgb(255, 255, 255);
     backdrop-filter: blur(16px);
-    box-shadow: 2px 0 12px rgba(59, 130, 246, 0.05);
+    box-shadow: 2px 0 12px rgba(14, 165, 233, 0.1);
   }
 
   .content-surface {
@@ -56,8 +70,8 @@
   .theme-light .content-surface {
     background-color: rgb(255, 255, 255);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(191, 219, 254, 0.6); /* Blue-200 với opacity cao hơn */
-    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.07);
+    border: 1px solid rgba(14, 165, 233, 0.3);
+    box-shadow: 0 4px 20px rgba(14, 165, 233, 0.12);
   }
 
   /* Đảm bảo background được áp dụng cho toàn bộ component có border-radius */
@@ -157,6 +171,51 @@
 .theme-light .text-gray-500 { 
   color: #2563eb !important; /* blue-600 */
 }
+
+/* Override all border colors in light theme */
+.theme-light .border-dark-700\/70,
+.theme-light .border-slate-700,
+.theme-light .border-slate-200 {
+  border-color: rgba(14, 165, 233, 0.3) !important;
+}
+
+/* Override specific border directions */
+.theme-light .border-b-dark-700\/70,
+.theme-light .border-r-dark-700\/70,
+.theme-light .border-t-dark-700\/70,
+.theme-light .border-l-dark-700\/70 {
+  border-color: rgba(14, 165, 233, 0.3) !important;
+}
+
+.theme-light .border-b-slate-700,
+.theme-light .border-r-slate-700,
+.theme-light .border-t-slate-700,
+.theme-light .border-l-slate-700 {
+  border-color: rgba(14, 165, 233, 0.3) !important;
+}
+
+.theme-light .border-b-slate-200,
+.theme-light .border-r-slate-200,
+.theme-light .border-t-slate-200,
+.theme-light .border-l-slate-200 {
+  border-color: rgba(14, 165, 233, 0.3) !important;
+}
+
+/* Override border-t for dark theme colors in light theme */
+.theme-light .border-t-dark-700 {
+  border-top-color: rgba(14, 165, 233, 0.3) !important;
+}
+
+/* Custom separator line class */
+.separator-line {
+  border-top-color: rgba(14, 165, 233, 0.3) !important;
+  border-bottom-color: rgba(14, 165, 233, 0.3) !important;
+}
+
+.theme-light .separator-line {
+  border-top-color: rgba(14, 165, 233, 0.3) !important;
+  border-bottom-color: rgba(14, 165, 233, 0.3) !important;
+}
 /* Exceptions: keep button text white in light theme */
 .theme-light .btn-primary,
 .theme-light .btn-primary *,
@@ -168,8 +227,8 @@
 /* Ensure active sidebar item has vibrant blue background in light theme */
 .theme-light .nav-item-active { 
   background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important; 
-  box-shadow: 0 4px 12px rgba(37,99,235,0.25) !important; 
-  border: none !important;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3) !important; 
+  border: 1px solid rgba(14, 165, 233, 0.5) !important;
 }
 
 /* Custom scrollbar */
@@ -266,8 +325,8 @@
 .theme-light .btn-secondary {
   color: #1d4ed8; /* blue-700 */
   background-color: #eff6ff; /* blue-50 */
-  border: 2px solid #93c5fd; /* blue-300 - đậm hơn */
-  box-shadow: 0 2px 5px rgba(59, 130, 246, 0.08);
+  border: 2px solid rgba(14, 165, 233, 0.3);
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.1);
 }
 .theme-light .btn-secondary:hover {
   background-color: #dbeafe; /* blue-100 */
@@ -299,12 +358,12 @@
 .theme-light .input-primary {
   color: #1e40af; /* blue-800 */
   background-color: #ffffff;
-  border: 2px solid #93c5fd; /* blue-300 - đậm hơn */
-  box-shadow: 0 2px 5px rgba(59, 130, 246, 0.05);
+  border: 2px solid rgba(14, 165, 233, 0.3);
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.1);
 }
 .theme-light .input-primary:focus {
-  border-color: #3b82f6; /* blue-500 */
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: rgba(14, 165, 233, 0.6);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
 }
 
 /* Card styles */
@@ -313,15 +372,15 @@
 }
 .theme-light .card {
   background-color: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.08);
-  border: 1px solid rgba(191, 219, 254, 0.8); /* blue-200 với opacity cao hơn */
+  box-shadow: 0 6px 16px rgba(14, 165, 233, 0.15);
+  border: 1px solid rgba(14, 165, 233, 0.3);
 }
 
 .card-hover {
   @apply hover:shadow-xl hover:shadow-primary-500/10 transition-all duration-300 hover:-translate-y-0.5;
 }
 .theme-light .card-hover:hover {
-  box-shadow: 0 12px 24px rgba(59, 130, 246, 0.12);
+  box-shadow: 0 12px 24px rgba(14, 165, 233, 0.2);
 }
 
 /* Navigation items */
@@ -332,11 +391,14 @@
 .theme-light .nav-item {
   color: #3b82f6; /* blue-500 */
   background-color: transparent;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px rgba(14, 165, 233, 0.05);
 }
 .theme-light .nav-item:hover {
   background-color: rgba(239, 246, 255, 0.8); /* blue-50 with opacity */
   color: #1d4ed8; /* blue-700 */
-  box-shadow: 0 2px 5px rgba(59, 130, 246, 0.05);
+  border-color: rgba(14, 165, 233, 0.3);
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.1);
 }
 
 .nav-item-active {
