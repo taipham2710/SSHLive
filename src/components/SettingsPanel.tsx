@@ -150,12 +150,11 @@ export function SettingsPanel() {
   const renderSecuritySettings = () => (
     <div className="space-y-6">
       <div className="space-y-4">
-        <label className="block text-sm font-medium text-gray-300">Security Settings</label>
         
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-gray-300">Auto Lock</span>
-            <p className="text-sm text-gray-500">Automatically lock the application after inactivity</p>
+            <span className="text-white text-xl font-semibold theme-light:text-blue-700">Auto Lock</span>
+            <p className="text-sm text-gray-500 theme-light:text-blue-600">Automatically lock the application after inactivity</p>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
             <input
@@ -170,8 +169,8 @@ export function SettingsPanel() {
 
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-gray-300">Save Passwords</span>
-            <p className="text-sm text-gray-500">Remember passwords for connections (encrypted)</p>
+            <span className="text-white text-xl font-semibold theme-light:text-blue-700">Save Passwords</span>
+            <p className="text-sm text-gray-500 theme-light:text-blue-600">Remember passwords for connections (encrypted)</p>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
             <input
@@ -185,7 +184,7 @@ export function SettingsPanel() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
+          <label className="block text-lg font-semibold text-white mb-3 theme-light:text-blue-900">
             Lock Timeout (minutes)
           </label>
           <input
@@ -196,9 +195,9 @@ export function SettingsPanel() {
             onChange={(e) => handleNestedSettingChange('security', 'lockTimeout', parseInt(e.target.value) * 60000)}
             className="w-full h-2 bg-dark-700 rounded-lg appearance-none cursor-pointer"
           />
-          <div className="flex justify-between text-xs text-gray-500 mt-1">
+          <div className="flex justify-between text-sm text-gray-400 mt-2 theme-light:text-blue-700">
             <span>1 min</span>
-            <span className="font-medium">{settings.security?.lockTimeout ? settings.security.lockTimeout / 60000 : 5} min</span>
+            <span className="font-semibold">{settings.security?.lockTimeout ? settings.security.lockTimeout / 60000 : 5} min</span>
             <span>60 min</span>
           </div>
         </div>
@@ -209,7 +208,7 @@ export function SettingsPanel() {
   const renderConnectionSettings = () => (
     <div className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">Default Port</label>
+        <label className="block text-lg font-semibold text-white mb-3 theme-light:text-blue-900">Default Port</label>
         <input
           type="number"
           value={settings.connection?.defaultPort || 22}
@@ -221,7 +220,7 @@ export function SettingsPanel() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">
+        <label className="block text-lg font-semibold text-white mb-3 theme-light:text-blue-900">
           Connection Timeout (seconds)
         </label>
         <input
@@ -242,8 +241,8 @@ export function SettingsPanel() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-gray-300">Auto Reconnect</span>
-            <p className="text-sm text-gray-500">Automatically reconnect on connection loss</p>
+            <span className="text-white text-xl font-semibold theme-light:text-blue-700">Auto Reconnect</span>
+            <p className="text-sm text-gray-500 theme-light:text-blue-600">Automatically reconnect on connection loss</p>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
             <input
@@ -257,7 +256,7 @@ export function SettingsPanel() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
+          <label className="block text-lg font-semibold text-white mb-3 theme-light:text-blue-900">
             Max Reconnect Attempts
           </label>
           <input
@@ -268,9 +267,9 @@ export function SettingsPanel() {
             onChange={(e) => handleNestedSettingChange('connection', 'maxReconnectAttempts', parseInt(e.target.value))}
             className="w-full h-2 bg-dark-700 rounded-lg appearance-none cursor-pointer"
           />
-          <div className="flex justify-between text-xs text-gray-500 mt-1">
+          <div className="flex justify-between text-sm text-gray-400 mt-2 theme-light:text-blue-700">
             <span>1</span>
-            <span className="font-medium">{settings.connection?.maxReconnectAttempts || 3}</span>
+            <span className="font-semibold">{settings.connection?.maxReconnectAttempts || 3}</span>
             <span>10</span>
           </div>
         </div>
@@ -281,12 +280,11 @@ export function SettingsPanel() {
   const renderTerminalSettings = () => (
     <div className="space-y-6">
       <div className="space-y-4">
-        <label className="block text-sm font-medium text-gray-300">Terminal Behavior</label>
         
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-gray-300">Cursor Blink</span>
-            <p className="text-sm text-gray-500">Make the cursor blink in the terminal</p>
+            <span className="text-white text-xl font-semibold theme-light:text-blue-700">Cursor Blink</span>
+            <p className="text-sm text-gray-500 theme-light:text-blue-600">Make the cursor blink in the terminal</p>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
             <input
@@ -300,7 +298,7 @@ export function SettingsPanel() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">Cursor Style</label>
+          <label className="block text-lg font-semibold text-white mb-3 theme-light:text-blue-900">Cursor Style</label>
           <select
             value={settings.terminal?.cursorStyle || 'block'}
             onChange={(e) => handleNestedSettingChange('terminal', 'cursorStyle', e.target.value)}
@@ -313,7 +311,7 @@ export function SettingsPanel() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
+          <label className="block text-lg font-semibold text-white mb-3 theme-light:text-blue-900">
             Scrollback Lines
           </label>
           <input
@@ -325,15 +323,15 @@ export function SettingsPanel() {
             onChange={(e) => handleNestedSettingChange('terminal', 'scrollback', parseInt(e.target.value))}
             className="w-full h-2 bg-dark-700 rounded-lg appearance-none cursor-pointer"
           />
-          <div className="flex justify-between text-xs text-gray-500 mt-1">
+          <div className="flex justify-between text-sm text-gray-400 mt-2 theme-light:text-blue-700">
             <span>100</span>
-            <span className="font-medium">{settings.terminal?.scrollback || 1000}</span>
+            <span className="font-semibold">{settings.terminal?.scrollback || 1000}</span>
             <span>10,000</span>
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">Bell Style</label>
+          <label className="block text-lg font-semibold text-white mb-3 theme-light:text-blue-900">Bell Style</label>
           <select
             value={settings.terminal?.bellStyle || 'visual'}
             onChange={(e) => handleNestedSettingChange('terminal', 'bellStyle', e.target.value)}
@@ -352,7 +350,7 @@ export function SettingsPanel() {
   const renderAdvancedSettings = () => (
     <div className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">Log Level</label>
+        <label className="block text-lg font-semibold text-white mb-3 theme-light:text-blue-900">Log Level</label>
         <select
           value={settings.advanced?.logLevel || 'info'}
           onChange={(e) => handleNestedSettingChange('advanced', 'logLevel', e.target.value)}
@@ -366,12 +364,11 @@ export function SettingsPanel() {
       </div>
 
       <div className="space-y-4">
-        <label className="block text-sm font-medium text-gray-300">Advanced Options</label>
         
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-gray-300">Enable Telemetry</span>
-            <p className="text-sm text-gray-500">Send anonymous usage data to help improve the app</p>
+            <span className="text-white text-xl font-semibold theme-light:text-blue-700">Enable Telemetry</span>
+            <p className="text-sm text-gray-500 theme-light:text-blue-600">Send anonymous usage data to help improve the app</p>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
             <input
@@ -386,8 +383,8 @@ export function SettingsPanel() {
 
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-gray-300">Auto Update</span>
-            <p className="text-sm text-gray-500">Automatically check for and install updates</p>
+            <span className="text-white text-xl font-semibold theme-light:text-blue-700">Auto Update</span>
+            <p className="text-sm text-gray-500 theme-light:text-blue-600">Automatically check for and install updates</p>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
             <input
