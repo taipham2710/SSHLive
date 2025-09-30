@@ -106,7 +106,7 @@ export function ConnectionManager({ onConnectionSelect }: ConnectionManagerProps
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-white">SSH Connections</h2>
-            <p className="text-gray-400 mt-1">Manage your SSH server connections</p>
+            <p className="text-gray-400 mt-1 theme-light:text-slate-600">Manage your SSH server connections</p>
           </div>
           <button
             onClick={() => setShowNewConnection(true)}
@@ -137,7 +137,7 @@ export function ConnectionManager({ onConnectionSelect }: ConnectionManagerProps
                 <Server className="w-8 h-8 text-blue-300" />
               </div>
               <h3 className="text-xl font-semibold text-gray-200 mb-2">No Connections</h3>
-              <p className="text-gray-400 mb-6">Create your first SSH connection to get started</p>
+              <p className="text-gray-400 mb-6 theme-light:text-slate-600">Create your first SSH connection to get started</p>
               <button
                 onClick={() => setShowNewConnection(true)}
                 className="btn-primary"
@@ -161,7 +161,7 @@ export function ConnectionManager({ onConnectionSelect }: ConnectionManagerProps
                       <h3 className="font-semibold text-white">
                         {connection.username}@{connection.host}
                       </h3>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-gray-400 theme-light:text-slate-600">
                         Port {connection.port} • {connection.status}
                       </p>
                     </div>
@@ -272,7 +272,7 @@ export function ConnectionManager({ onConnectionSelect }: ConnectionManagerProps
                     <button
                       type="button"
                       onClick={() => setShowPassphrase(!showPassphrase)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 theme-light:text-slate-600 theme-light:hover:text-slate-700"
                     >
                       {showPassphrase ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
@@ -295,7 +295,7 @@ export function ConnectionManager({ onConnectionSelect }: ConnectionManagerProps
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 theme-light:text-slate-600 theme-light:hover:text-slate-700"
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>

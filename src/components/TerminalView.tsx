@@ -186,7 +186,7 @@ export function TerminalView({ connectionId, onConnectionClose }: TerminalViewPr
             <h3 className="font-semibold text-white">
               {connection.username}@{connection.host}:{connection.port}
             </h3>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-400 theme-light:text-slate-600">
               {connection.status} • {connection.connectedAt?.toLocaleTimeString()}
             </p>
           </div>
@@ -198,7 +198,7 @@ export function TerminalView({ connectionId, onConnectionClose }: TerminalViewPr
             className="p-2 hover:bg-dark-700 rounded-lg transition-colors"
             title="Clear terminal"
           >
-            <RotateCcw className="w-4 h-4 text-gray-400" />
+            <RotateCcw className="w-4 h-4 text-gray-400 theme-light:text-slate-600" />
           </button>
           
           <button
@@ -206,7 +206,7 @@ export function TerminalView({ connectionId, onConnectionClose }: TerminalViewPr
             className="p-2 hover:bg-dark-700 rounded-lg transition-colors"
             title="Download log"
           >
-            <Download className="w-4 h-4 text-gray-400" />
+            <Download className="w-4 h-4 text-gray-400 theme-light:text-slate-600" />
           </button>
           
           <button
@@ -215,9 +215,9 @@ export function TerminalView({ connectionId, onConnectionClose }: TerminalViewPr
             title={isMaximized ? "Restore" : "Maximize"}
           >
             {isMaximized ? (
-              <Minimize2 className="w-4 h-4 text-gray-400" />
+              <Minimize2 className="w-4 h-4 text-gray-400 theme-light:text-slate-600" />
             ) : (
-              <Maximize2 className="w-4 h-4 text-gray-400" />
+              <Maximize2 className="w-4 h-4 text-gray-400 theme-light:text-slate-600" />
             )}
           </button>
           
@@ -241,7 +241,7 @@ export function TerminalView({ connectionId, onConnectionClose }: TerminalViewPr
       </div>
 
       {/* Status Bar */}
-      <div className="px-4 py-2 bg-dark-800/80 backdrop-blur-md border-t border-dark-700/70 text-sm text-gray-400">
+      <div className="px-4 py-2 bg-dark-800/80 backdrop-blur-md border-t border-dark-700/70 text-sm text-gray-400 theme-light:bg-slate-50 theme-light:border-slate-200 theme-light:text-slate-600">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <span>SSH Terminal</span>

@@ -135,7 +135,7 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-white">File Transfer</h2>
-            <p className="text-gray-400 mt-1">Browse and transfer files via SFTP</p>
+            <p className="text-gray-400 mt-1 theme-light:text-slate-600">Browse and transfer files via SFTP</p>
           </div>
           <div className="flex space-x-3">
             <button
@@ -186,7 +186,7 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
       <div className="flex-1 overflow-y-auto p-6">
         {loading ? (
           <div className="flex items-center justify-center h-64">
-            <div className="flex items-center space-x-2 text-gray-400">
+            <div className="flex items-center space-x-2 text-gray-400 theme-light:text-slate-600">
               <RefreshCw className="w-5 h-5 animate-spin" />
               <span>Loading files...</span>
             </div>
@@ -215,7 +215,7 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
                   {file.type === 'directory' ? (
                     <Folder className="w-6 h-6 text-blue-400" />
                   ) : (
-                    <File className="w-6 h-6 text-gray-400" />
+                    <File className="w-6 h-6 text-gray-400 theme-light:text-slate-600" />
                   )}
                 </div>
                 
@@ -228,7 +228,7 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center space-x-4 text-sm text-gray-400">
+                  <div className="flex items-center space-x-4 text-sm text-gray-400 theme-light:text-slate-600">
                     <span>{formatFileSize(file.size)}</span>
                     <span>{formatPermissions(file.permissions)}</span>
                     <span>{file.modified.toLocaleDateString()}</span>
@@ -264,7 +264,7 @@ export function FileTransfer({ connectionId }: FileTransferProps) {
 
       {/* Status Bar */}
       <div className="px-6 py-3 bg-dark-800/70 backdrop-blur-md border-t border-dark-700/70">
-        <div className="flex items-center justify-between text-sm text-gray-400">
+        <div className="flex items-center justify-between text-sm text-gray-400 theme-light:text-slate-600">
           <div className="flex items-center space-x-4">
             <span>{files.length} items</span>
             {selectedFiles.size > 0 && (

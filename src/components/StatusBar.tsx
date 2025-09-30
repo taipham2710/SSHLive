@@ -27,7 +27,7 @@ export function StatusBar({ activeConnection, currentView }: StatusBarProps) {
   }, [])
 
   return (
-    <div className="flex items-center justify-between px-4 py-2 bg-dark-800 border-t border-dark-700 text-sm">
+        <div className="flex items-center justify-between px-4 py-2 bg-slate-800 border-t border-slate-700 text-sm theme-light:bg-slate-50 theme-light:border-slate-200 theme-light:text-slate-800">
       <div className="flex items-center space-x-6">
         <div className="flex items-center space-x-2">
           <StatusIcon className={`w-4 h-4 ${status.color}`} />
@@ -40,7 +40,7 @@ export function StatusBar({ activeConnection, currentView }: StatusBarProps) {
         </div>
       </div>
 
-      <div className="flex items-center space-x-6 text-gray-400">
+        <div className="flex items-center space-x-6 text-gray-400 theme-light:text-slate-600">
         <div className="flex items-center space-x-2">
           <Clock className="w-4 h-4" />
           <span>{time}</span>

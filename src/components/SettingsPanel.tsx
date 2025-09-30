@@ -437,7 +437,7 @@ export function SettingsPanel() {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-white">Settings</h2>
-            <p className="text-gray-400 mt-1">Customize your SSH Live experience</p>
+            <p className="text-gray-400 mt-1 theme-light:text-slate-600">Customize your SSH Live experience</p>
           </div>
           {hasChanges && (
             <button className="btn-success flex items-center space-x-2">

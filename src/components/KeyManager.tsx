@@ -128,7 +128,7 @@ export function KeyManager() {
       case 'ecdsa':
         return 'text-green-400 bg-green-400/10'
       default:
-        return 'text-gray-400 bg-gray-400/10'
+        return 'text-gray-400 bg-gray-400/10 theme-light:text-slate-600 theme-light:bg-slate-100/30'
     }
   }
 
@@ -152,7 +152,7 @@ export function KeyManager() {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-white">SSH Keys</h2>
-            <p className="text-gray-400 mt-1">Manage your SSH key pairs for secure authentication</p>
+            <p className="text-gray-400 mt-1 theme-light:text-slate-600">Manage your SSH key pairs for secure authentication</p>
           </div>
           <div className="flex space-x-3">
             <button
@@ -203,7 +203,7 @@ export function KeyManager() {
                           {key.type.toUpperCase()}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-400 mb-2">
+                      <p className="text-sm text-gray-400 mb-2 theme-light:text-slate-600">
                         Fingerprint: <code className="bg-dark-700 px-2 py-1 rounded text-xs">{key.fingerprint}</code>
                       </p>
                       <p className="text-xs text-gray-500">
@@ -221,7 +221,7 @@ export function KeyManager() {
                       {copiedKey === key.id ? (
                         <Check className="w-4 h-4 text-green-400" />
                       ) : (
-                        <Copy className="w-4 h-4 text-gray-400" />
+                        <Copy className="w-4 h-4 text-gray-400 theme-light:text-slate-600" />
                       )}
                     </button>
                     
@@ -237,7 +237,7 @@ export function KeyManager() {
                 
                 <div className="mt-4 p-3 bg-dark-700 rounded-lg">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-medium text-gray-400">Public Key</span>
+                    <span className="text-xs font-medium text-gray-400 theme-light:text-slate-600">Public Key</span>
                     <button
                       onClick={() => copyToClipboard(key.publicKey, `${key.id}-pub`)}
                       className="text-xs text-primary-400 hover:text-primary-300"
