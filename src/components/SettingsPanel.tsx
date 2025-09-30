@@ -9,25 +9,41 @@ export function SettingsPanel() {
   const [previewTheme, setPreviewTheme] = useState<'light' | 'dark' | 'auto' | undefined>(undefined)
   const [previewFontSize, setPreviewFontSize] = useState<number | undefined>(undefined)
 
-  const applyTheme = (theme: 'light' | 'dark' | 'auto') => {
+  const applyTheme = (theme: 'light' | 'dark' | 'auto', animate: boolean = true) => {
     const root = document.documentElement
-    // Add a short-lived class to animate color-related properties
-    root.classList.add('theme-anim')
+    // Optionally add a short-lived class to animate color-related properties
+    if (animate) {
+      root.classList.add('theme-anim')
+    }
     const shouldUseDark = theme === 'dark' || (theme === 'auto' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
     root.classList.toggle('dark', shouldUseDark)
     root.classList.toggle('theme-light', !shouldUseDark)
-    window.clearTimeout((root as any)._themeAnimTid)
-    ;(root as any)._themeAnimTid = window.setTimeout(() => {
-      root.classList.remove('theme-anim')
-    }, 240)
+    if (animate) {
+      window.clearTimeout((root as any)._themeAnimTid)
+      ;(root as any)._themeAnimTid = window.setTimeout(() => {
+        root.classList.remove('theme-anim')
+      }, 240)
+    }
   }
 
   // Apply theme preview to the document root without persisting
   useEffect(() => {
-    const effectiveTheme = previewTheme ?? settings.theme
-    if (!effectiveTheme) return
-    applyTheme(effectiveTheme)
+    if (previewTheme) {
+      applyTheme(previewTheme, true)
+      return
+    }
+    // Avoid animation on mount when just confirming saved theme
+    if (settings.theme) {
+      applyTheme(settings.theme as 'light' | 'dark' | 'auto', false)
+    }
   }, [previewTheme, settings.theme])
+
+  // Keep CSS variable --app-font-size in sync with preview or saved value (only within unified content scope)
+  useEffect(() => {
+    const sizePx = `${previewFontSize ?? settings.fontSize ?? 14}px`
+    // Apply at root to make it visible, but avoid zoom jump by toggling class on content container
+    document.documentElement.style.setProperty('--app-font-size', sizePx)
+  }, [previewFontSize, settings.fontSize])
 
   // Revert preview when leaving Settings panel (unmount)
   useEffect(() => {
@@ -61,11 +77,12 @@ export function SettingsPanel() {
       // Font size preview only (no save yet)
       if (key === 'fontSize') {
         setPreviewFontSize(value)
-        document.documentElement.classList.add('theme-anim')
-        document.documentElement.style.setProperty('--app-font-size', `${value}px`)
-        window.clearTimeout((document.documentElement as any)._themeAnimTid)
-        ;(document.documentElement as any)._themeAnimTid = window.setTimeout(() => {
-          document.documentElement.classList.remove('theme-anim')
+        const root = document.documentElement
+        root.classList.add('theme-anim')
+        root.style.setProperty('--app-font-size', `${value}px`)
+        window.clearTimeout((root as any)._themeAnimTid)
+        ;(root as any)._themeAnimTid = window.setTimeout(() => {
+          root.classList.remove('theme-anim')
         }, 200)
         setHasChanges(true)
         return
