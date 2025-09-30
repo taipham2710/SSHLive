@@ -192,7 +192,7 @@ function App() {
           </div>
           
           {/* Status Bar */}
-          {settings.ui?.showStatusBar && (
+          {settings.ui?.showStatusBar !== false && (
             <StatusBar 
               activeConnection={appState.activeConnection}
               currentView={appState.currentView}

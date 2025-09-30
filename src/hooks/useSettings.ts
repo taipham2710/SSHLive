@@ -37,7 +37,14 @@ export interface AppSettings {
 }
 
 export function useSettings() {
-  const [settings, setSettings] = useState<Partial<AppSettings>>({})
+  const [settings, setSettings] = useState<Partial<AppSettings>>({
+    ui: {
+      showStatusBar: true,
+      showSidebar: true,
+      sidebarWidth: 256,
+      animations: true,
+    },
+  })
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -46,6 +53,8 @@ export function useSettings() {
         if (window.electronAPI) {
           const allSettings = await window.electronAPI.settingsGetAll()
           setSettings(allSettings)
+        } else {
+          // Running in browser (no Electron). Keep defaults above.
         }
       } catch (error) {
         console.error('Error loading settings:', error)
