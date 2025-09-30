@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Settings, Monitor, Shield, Network, Palette, Code, Save, RotateCcw } from 'lucide-react'
 import { useSettings } from '../hooks/useSettings'
 
@@ -6,6 +6,37 @@ export function SettingsPanel() {
   const { settings, updateSetting, updateNestedSetting, resetSettings } = useSettings()
   const [activeTab, setActiveTab] = useState<'appearance' | 'security' | 'connection' | 'terminal' | 'advanced'>('appearance')
   const [hasChanges, setHasChanges] = useState(false)
+  const [previewTheme, setPreviewTheme] = useState<'light' | 'dark' | 'auto' | undefined>(undefined)
+
+  const applyTheme = (theme: 'light' | 'dark' | 'auto') => {
+    const root = document.documentElement
+    // Add a short-lived class to animate color-related properties
+    root.classList.add('theme-anim')
+    const shouldUseDark = theme === 'dark' || (theme === 'auto' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    root.classList.toggle('dark', shouldUseDark)
+    root.classList.toggle('theme-light', !shouldUseDark)
+    window.clearTimeout((root as any)._themeAnimTid)
+    ;(root as any)._themeAnimTid = window.setTimeout(() => {
+      root.classList.remove('theme-anim')
+    }, 240)
+  }
+
+  // Apply theme preview to the document root without persisting
+  useEffect(() => {
+    const effectiveTheme = previewTheme ?? settings.theme
+    if (!effectiveTheme) return
+    applyTheme(effectiveTheme)
+  }, [previewTheme, settings.theme])
+
+  // Revert preview when leaving Settings panel (unmount)
+  useEffect(() => {
+    return () => {
+      if (previewTheme) {
+        const fallback = (settings.theme || 'auto') as 'light' | 'dark' | 'auto'
+        applyTheme(fallback)
+      }
+    }
+  }, [previewTheme, settings.theme])
 
   const tabs = [
     { id: 'appearance', label: 'Appearance', icon: Palette },
@@ -17,6 +48,12 @@ export function SettingsPanel() {
 
   const handleSettingChange = async (key: string, value: any) => {
     try {
+      // Theme is special: only preview until user clicks Save
+      if (key === 'theme') {
+        setPreviewTheme(value)
+        setHasChanges(true)
+        return
+      }
       await updateSetting(key as any, value)
       setHasChanges(true)
     } catch (error) {
@@ -54,7 +91,7 @@ export function SettingsPanel() {
               key={theme}
               onClick={() => handleSettingChange('theme', theme)}
               className={`p-5 rounded-xl border transition-all duration-200 text-center select-none ${
-                settings.theme === theme
+                (previewTheme ?? settings.theme) === theme
                   ? 'nav-item-active text-white'
                   : 'border-dark-600 hover:border-primary-400/50 hover:shadow-glow text-gray-300 theme-light:text-blue-700 theme-light:hover:text-blue-800'
               }`}
@@ -350,7 +387,7 @@ export function SettingsPanel() {
   const renderAdvancedSettings = () => (
     <div className="space-y-6">
       <div>
-        <label className="block text-lg font-semibold text-white mb-3 theme-light:text-blue-900">Log Level</label>
+        <label className="block text-xl font-semibold text-white mb-3 theme-light:text-blue-900">Log Level</label>
         <select
           value={settings.advanced?.logLevel || 'info'}
           onChange={(e) => handleNestedSettingChange('advanced', 'logLevel', e.target.value)}
@@ -437,7 +474,16 @@ export function SettingsPanel() {
             <p className="text-gray-400 mt-1 theme-light:text-slate-600">Customize your SSH Live experience</p>
           </div>
           {hasChanges && (
-            <button className="btn-success flex items-center space-x-2">
+            <button
+              className="btn-success flex items-center space-x-2"
+              onClick={async () => {
+                if (previewTheme) {
+                  await updateSetting('theme' as any, previewTheme)
+                  setPreviewTheme(undefined)
+                }
+                setHasChanges(false)
+              }}
+            >
               <Save className="w-4 h-4" />
               <span>Save Changes</span>
             </button>
