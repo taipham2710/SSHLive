@@ -9,7 +9,7 @@ export function SettingsPanel() {
   const [previewTheme, setPreviewTheme] = useState<'light' | 'dark' | 'auto' | undefined>(undefined)
   const [previewFontSize, setPreviewFontSize] = useState<number | undefined>(undefined)
   const [previewFontFamily, setPreviewFontFamily] = useState<string | undefined>(undefined)
-  const DEFAULT_FONT_STACK = "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif"
+  const DEFAULT_FONT_STACK = "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
 
   // Capture the initial app font (once) as the true default
   useEffect(() => {
@@ -59,22 +59,15 @@ export function SettingsPanel() {
   }, [previewFontSize, settings.fontSize])
 
   // Revert preview when leaving Settings panel (unmount)
+  // Revert previews only when leaving Settings (unmount), not on each state change
   useEffect(() => {
     return () => {
-      if (previewTheme) {
-        const fallback = (settings.theme || 'auto') as 'light' | 'dark' | 'auto'
-        applyTheme(fallback)
-      }
-      if (previewFontSize !== undefined) {
-        document.documentElement.style.setProperty('--app-font-size', `${settings.fontSize || 14}px`)
-      }
-      // Revert font family to saved value on leave if not saved
-      if (previewFontFamily !== undefined) {
-        document.documentElement.style.setProperty('--app-font-family', settings.fontFamily || 'JetBrains Mono')
-        setPreviewFontFamily(undefined)
-      }
+      const fallbackTheme = (settings.theme || 'auto') as 'light' | 'dark' | 'auto'
+      applyTheme(fallbackTheme, false)
+      document.documentElement.style.setProperty('--app-font-size', `${settings.fontSize || 14}px`)
+      document.documentElement.style.setProperty('--app-font-family', settings.fontFamily || "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace")
     }
-  }, [previewTheme, previewFontSize, previewFontFamily, settings.theme, settings.fontSize, settings.fontFamily])
+  }, [])
 
   const tabs = [
     { id: 'appearance', label: 'Appearance', icon: Palette },
@@ -194,8 +187,7 @@ export function SettingsPanel() {
           }}
           className="input-primary w-full"
         >
-          <option value={DEFAULT_FONT_STACK}>Inter (Default)</option>
-          <option value="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace">JetBrains Mono</option>
+          <option value={DEFAULT_FONT_STACK}>JetBrains Mono (Default)</option>
           <option value="'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace">Fira Code</option>
           <option value="Monaco, ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', 'Courier New', monospace">Monaco</option>
           <option value="Consolas, ui-monospace, SFMono-Regular, Menlo, Monaco, 'Liberation Mono', 'Courier New', monospace">Consolas</option>
